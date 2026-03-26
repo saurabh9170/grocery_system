@@ -1,21 +1,86 @@
+/* ================= GLOBAL ================= */
 body {
-    background-color: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2b5885;
+    color: #000; /* text black for table, dashboard, normal text */
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
 }
 
+/* ================= HEADER / NAVBAR ================= */
+header, .navbar, .navbar a, .navbar-brand {
+    color: #fff !important; /* white text for header links */
+}
+
+.navbar a:hover {
+    color: #ddd !important;
+}
+
+/* ================= CARDS ================= */
 .card {
-    border-radius: 10px;
-    transition: transform 0.3s;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: #000; /* text inside cards black */
 }
 
 .card:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* ================= TABLES ================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #000; /* table text black */
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    color: #000; /* table text black */
 }
 
 table th {
-    background-color: #007bff;
-    color: white;
+    background-color: #edeff3;
+    font-weight: 600;
+}
+
+table tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.3s;
 }
 
 table tr:hover {
-    background-color: #e9ecef;
+    background-color: #f1f3f5;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary { background:#0d0e10; color:#fff; border:none; }
+.btn-primary:hover { background:#0f0f10; }
+.btn-success { background:#38d9a9; color:#fff; border:none; }
+.btn-success:hover { background:#20c997; }
+
+/* ================= DASHBOARD HEADER ================= */
+.dashboard-header {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000; /* dashboard header black */
 }
