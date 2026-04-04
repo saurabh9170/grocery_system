@@ -3,29 +3,33 @@ include 'includes/session.php';
 include 'includes/db.php';
 include 'includes/header.php';
 
-// Fetch inventory data
+// 1. Fetch inventory data (Updated column names)
 $inventory_query = mysqli_query($conn,"SELECT * FROM inventory");
 
-// Fetch last 30 days sales for forecasting
+// 2. Fetch last 30 days sales for forecasting
 $sales_query = mysqli_query($conn,"
     SELECT product_id, SUM(quantity_sold) as total_sold, DATE(sale_date) as sale_day
     FROM sales
     WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
     GROUP BY product_id, DATE(sale_date)
 ");
+
 $sales_data = [];
 while($row = mysqli_fetch_assoc($sales_query)){
     $sales_data[$row['product_id']][$row['sale_day']] = $row['total_sold'];
 }
 
-// Prepare data for graph (Moving Average)
+// 3. Prepare data for graph (Moving Average)
 $graph_labels = [];
 $graph_values = [];
-$graph_products = mysqli_query($conn,"SELECT DISTINCT product_name, id FROM inventory LIMIT 5"); // top 5 products for simplicity
+// Updated: Product_Name
+$graph_products = mysqli_query($conn,"SELECT DISTINCT Product_Name, id FROM inventory LIMIT 5"); 
+
 while($prod = mysqli_fetch_assoc($graph_products)){
-    $graph_labels[] = $prod['product_name'];
+    $graph_labels[] = $prod['Product_Name'];
     $total = 0;
     $days_counted = 0;
+    
     if(isset($sales_data[$prod['id']])){
         foreach($sales_data[$prod['id']] as $day => $sold){
             $total += $sold;
@@ -38,61 +42,94 @@ while($prod = mysqli_fetch_assoc($graph_products)){
 }
 ?>
 
-<h2 class="mb-4">Forecasting</h2>
-<p>This is a simple demand forecast based on current inventory levels and moving average of last 30 days sales.</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Demand Forecasting</h2>
+    <p class="text-muted">Predictions based on current stock levels vs. your defined reorder points and 30-day sales trends.</p>
 
-<h4>Inventory & Recommended Orders</h4>
-<table class="table table-bordered mb-4">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Current Quantity</th>
-      <th>Recommended Order</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php
-  while($row = mysqli_fetch_assoc($inventory_query)){
-      $recommended = ($row['quantity'] < 20) ? 50 - $row['quantity'] : 0;
-      echo "<tr>
-              <td>{$row['product_name']}</td>
-              <td>{$row['quantity']}</td>
-              <td>{$recommended}</td>
-            </tr>";
-  }
-  ?>
-  </tbody>
-</table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-3 mb-4">
+                <h4>Inventory & Recommended Orders</h4>
+                <table class="table table-hover table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Current Stock</th>
+                            <th>Reorder Level</th>
+                            <th>Status</th>
+                            <th>Recommended Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    mysqli_data_seek($inventory_query, 0); // Reset pointer
+                    while($row = mysqli_fetch_assoc($inventory_query)){
+                        // NEW LOGIC: Use the Reorder_Level from your database
+                        $stock = $row['Stock_Quantity'];
+                        $level = $row['Reorder_Level'];
+                        $reorder_qty = $row['Reorder_Quantity'];
 
-<h4>Sales Trend (Moving Average)</h4>
-<canvas id="salesTrendChart" height="100"></canvas>
+                        if ($stock <= $level) {
+                            $action = "<span class='badge bg-danger'>Order " . $reorder_qty . " Units</span>";
+                            $status = "<span class='text-danger'>Low Stock</span>";
+                        } else {
+                            $action = "<span class='text-muted'>No action needed</span>";
+                            $status = "<span class='text-success'>Healthy</span>";
+                        }
+
+                        echo "<tr>
+                                <td>{$row['Product_Name']}</td>
+                                <td>{$stock}</td>
+                                <td>{$level}</td>
+                                <td>{$status}</td>
+                                <td>{$action}</td>
+                              </tr>";
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <h4>Sales Trend (Moving Average)</h4>
+                <p class="small text-muted">Average daily units sold for top 5 products</p>
+                <canvas id="salesTrendChart" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const ctx = document.getElementById('salesTrendChart').getContext('2d');
-const salesTrendChart = new Chart(ctx, {
+new Chart(ctx, {
     type: 'line',
     data: {
         labels: <?php echo json_encode($graph_labels); ?>,
         datasets: [{
-            label: 'Avg Daily Sales (Last 30 Days)',
+            label: 'Avg Daily Sales (Units)',
             data: <?php echo json_encode($graph_values); ?>,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 2,
-            tension: 0.3,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 3,
+            tension: 0.4,
             fill: true
         }]
     },
     options: {
         responsive: true,
-        plugins: { legend: { display: true } },
         scales: {
-            y: { beginAtZero: true }
+            y: { 
+                beginAtZero: true,
+                title: { display: true, text: 'Units Sold' }
+            }
         }
     }
 });
 </script>
-</div>
-</body>
-</html>
+
+<?php include 'includes/footer.php'; ?>

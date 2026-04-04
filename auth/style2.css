@@ -1,0 +1,95 @@
+/* style.css */
+:root {
+    --primary: #6366f1;
+    --primary-glow: rgba(99, 102, 241, 0.4);
+    --bg-black: #000000;
+    --card-bg: #111111;
+    --border: rgba(255, 255, 255, 0.15);
+    --text-main: #ffffff;
+    --text-dim: #d1d1d6;
+    --placeholder-color: #a1a1aa;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-black);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.auth-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.brand-logo {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: -0.05em;
+}
+.brand-logo span { color: var(--primary); }
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+}
+
+.form-control {
+    background: #1a1a1a !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    padding: 14px 16px !important;
+    color: #ffffff !important;
+    margin-bottom: 20px;
+}
+
+.form-control::placeholder {
+    color: var(--placeholder-color) !important;
+    opacity: 1;
+}
+
+.form-control:focus {
+    background: #222222 !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px var(--primary-glow) !important;
+    outline: none;
+}
+
+.btn {
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 14px;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+.btn-primary { background: var(--primary); border: none; color: #ffffff; }
+.btn-primary:hover { background: #4f46e5; transform: translateY(-2px); }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+
+.btn-link-custom {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+}
+.alert { border-radius: 12px; font-weight: 600; margin-bottom: 20px; }

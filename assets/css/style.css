@@ -1,86 +1,155 @@
-/* ================= GLOBAL ================= */
+
+:root {
+    --bg-dark: #000000;          /* Pure Black */
+    --surface: #0a0a0a;         /* Near Black Card Surface */
+    --surface-light: #161616;   /* Lighter Zinc for hover/inputs */
+    --primary: #6366f1;         /* Indigo Glow */
+    --accent: #00d8ff;          /* React Blue */
+    --border: rgba(255, 255, 255, 0.08); /* Minimal white border */
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;      /* Zinc 400 */
+}
+
+/* ================= GLOBAL RESET ================= */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #2b5885;
-    color: #000; /* text black for table, dashboard, normal text */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     margin: 0;
-    padding: 0;
-    transition: background 0.3s, color 0.3s;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* ================= HEADER / NAVBAR ================= */
-header, .navbar, .navbar a, .navbar-brand {
-    color: #fff !important; /* white text for header links */
+/* ================= MODERN BLACK TYPE NAVBAR ================= */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.95) !important; 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border) !important; 
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1050;
 }
 
-.navbar a:hover {
-    color: #ddd !important;
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #ffffff !important; 
+    font-size: 1.4rem;
 }
 
-/* ================= CARDS ================= */
+.navbar-brand span {
+    color: var(--primary); /* Indigo 'G' */
+}
+
+.nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 1.2rem !important;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+/* ================= DARK CARDS (DASHBOARD STATS) ================= */
 .card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    color: #000; /* text inside cards black */
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
-/* ================= TABLES ================= */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    color: #000; /* table text black */
+.card-body h5 {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 15px;
 }
 
-table th, table td {
-    padding: 12px 15px;
-    text-align: left;
-    color: #000; /* table text black */
+.card-body h2 {
+    color: var(--text-main);
+    font-weight: 800;
+    font-size: 2rem;
+    margin: 0;
 }
 
-table th {
-    background-color: #edeff3;
-    font-weight: 600;
+/* ================= INVENTORY TABLE (GLASS LOOK) ================= */
+.table-responsive {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-top: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-table tr {
-    border-bottom: 1px solid #e0e0e0;
-    transition: background 0.3s;
+table thead th {
+    background: var(--surface-light) !important;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 1.2rem !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+table tbody td {
+    padding: 1.2rem !important;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: #e4e4e7;
+    vertical-align: middle;
+}
+
+table tr:last-child td {
+    border-bottom: none;
 }
 
 table tr:hover {
-    background-color: #f1f3f5;
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* ================= BUTTONS ================= */
-.btn {
-    border-radius: 50px;
-    font-weight: 600;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    text-align: center;
-    display: inline-block;
+/* ================= REACT-STYLE BUTTONS ================= */
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
 }
 
-.btn-primary { background:#0d0e10; color:#fff; border:none; }
-.btn-primary:hover { background:#0f0f10; }
-.btn-success { background:#38d9a9; color:#fff; border:none; }
-.btn-success:hover { background:#20c997; }
+.btn-primary:hover {
+    background-color: #4f46e5;
+    transform: scale(1.02);
+}
 
-/* ================= DASHBOARD HEADER ================= */
-.dashboard-header {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #000; /* dashboard header black */
+/* ================= MODERN SCROLLBAR ================= */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--surface-light);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
 }
