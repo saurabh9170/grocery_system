@@ -1,118 +1,112 @@
-
 :root {
-    --bg-dark: #000000;          /* Pure Black */
-    --surface: #0a0a0a;         /* Near Black Card Surface */
-    --surface-light: #161616;   /* Lighter Zinc for hover/inputs */
-    --primary: #6366f1;         /* Indigo Glow */
-    --accent: #00d8ff;          /* React Blue */
-    --border: rgba(255, 255, 255, 0.08); /* Minimal white border */
-    --text-main: #ffffff;
-    --text-muted: #a1a1aa;      /* Zinc 400 */
+    --brand: #00d8ff;        /* React Blue */
+    --primary: #6366f1;      /* Modern Indigo */
+    --bg-app: #f9fafb;       /* Tailwind Slate 50 */
+    --surface: #ffffff;
+    --text-main: #111827;    /* Slate 900 */
+    --text-muted: #6b7280;   /* Slate 500 */
+    --border: #e5e7eb;       /* Slate 200 */
+    --radius: 12px;
 }
 
-/* ================= GLOBAL RESET ================= */
+/* ================= RESET & TYPOGRAPHY ================= */
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-app);
     color: var(--text-main);
-    margin: 0;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
 }
 
-/* ================= MODERN BLACK TYPE NAVBAR ================= */
+/* ================= REACT-STYLE NAVBAR ================= */
 .navbar {
-    background-color: rgba(0, 0, 0, 0.95) !important; 
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border) !important; 
-    padding: 0.8rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 1050;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 2rem;
 }
 
 .navbar-brand {
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: #ffffff !important; 
-    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.navbar-brand span {
-    color: var(--primary); /* Indigo 'G' */
+.navbar-brand::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--brand);
+    border-radius: 50%;
+    display: inline-block;
 }
 
 .nav-link {
     color: var(--text-muted) !important;
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 1.2rem !important;
-    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
 }
 
 .nav-link:hover, .nav-link.active {
-    color: #ffffff !important;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+    color: var(--primary) !important;
 }
 
-/* ================= DARK CARDS (DASHBOARD STATS) ================= */
+/* ================= DATA CARDS (SPA STYLE) ================= */
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: border-color 0.2s;
 }
 
 .card:hover {
-    border-color: rgba(99, 102, 241, 0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary);
 }
 
 .card-body h5 {
     color: var(--text-muted);
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 15px;
+    letter-spacing: 0.05em;
 }
 
 .card-body h2 {
-    color: var(--text-main);
-    font-weight: 800;
-    font-size: 2rem;
-    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.03em;
 }
 
-/* ================= INVENTORY TABLE (GLASS LOOK) ================= */
+/* ================= THE INVENTORY TABLE ================= */
 .table-responsive {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    margin-top: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+table {
+    margin: 0 !important;
 }
 
 table thead th {
-    background: var(--surface-light) !important;
-    color: var(--text-main);
-    font-size: 0.75rem;
-    font-weight: 800;
+    background: #fcfcfd !important;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
-    padding: 1.2rem !important;
+    padding: 1rem !important;
     border-bottom: 1px solid var(--border) !important;
 }
 
 table tbody td {
-    padding: 1.2rem !important;
+    padding: 1rem !important;
     border-bottom: 1px solid var(--border);
     font-size: 0.9rem;
-    color: #e4e4e7;
     vertical-align: middle;
 }
 
@@ -120,36 +114,47 @@ table tr:last-child td {
     border-bottom: none;
 }
 
-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+/* ================= REACT BUTTONS ================= */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
 }
 
-/* ================= REACT-STYLE BUTTONS ================= */
 .btn-primary {
     background-color: var(--primary);
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    padding: 0.6rem 1.5rem;
-    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+    color: white;
 }
 
 .btn-primary:hover {
     background-color: #4f46e5;
-    transform: scale(1.02);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
 }
 
-/* ================= MODERN SCROLLBAR ================= */
-::-webkit-scrollbar {
-    width: 8px;
+.btn-outline-primary {
+    border-color: var(--border);
+    color: var(--text-main);
+    background: white;
 }
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+
+.btn-outline-primary:hover {
+    background: var(--bg-app);
+    border-color: var(--primary);
+    color: var(--primary);
 }
-::-webkit-scrollbar-thumb {
-    background: var(--surface-light);
-    border-radius: 10px;
+
+/* ================= MODERN BADGES ================= */
+.badge {
+    padding: 4px 8px;
+    font-weight: 500;
+    border-radius: 9999px; /* Pill shape */
+    font-size: 0.7rem;
 }
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
+
+.bg-primary { background-color: #eef2ff !important; color: #4338ca !important; }
+.bg-success { background-color: #ecfdf5 !important; color: #065f46 !important; }
+.bg-danger { background-color: #fef2f2 !important; color: #991b1b !important; }
