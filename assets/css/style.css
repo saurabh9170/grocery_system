@@ -1,160 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-    --brand: #00d8ff;        /* React Blue */
-    --primary: #6366f1;      /* Modern Indigo */
-    --bg-app: #f9fafb;       /* Tailwind Slate 50 */
-    --surface: #ffffff;
-    --text-main: #111827;    /* Slate 900 */
-    --text-muted: #6b7280;   /* Slate 500 */
-    --border: #e5e7eb;       /* Slate 200 */
-    --radius: 12px;
+    --bg-dark: #020617;           /* Deep Midnight */
+    --surface: #0f172a;          /* Card Surface */
+    --surface-light: #1e293b;    /* Hover/Input Surface */
+    --primary-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --primary: #6366f1;          
+    --border: rgba(255, 255, 255, 0.08); 
+    --text-main: #f8fafc;        
+    --text-muted: #94a3b8;       
 }
 
-/* ================= RESET & TYPOGRAPHY ================= */
+/* ================= GLOBAL RESET ================= */
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-app);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%);
     color: var(--text-main);
-    letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    min-height: 100vh;
 }
 
-/* ================= REACT-STYLE NAVBAR ================= */
+/* Visibility Fix for Headings & Paragraphs */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p, label, .text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* ================= MODERN NAVBAR ================= */
 .navbar {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(2, 6, 23, 0.8) !important; 
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--border) !important; 
+    padding: 0.8rem 2rem;
 }
 
 .navbar-brand {
-    font-weight: 700;
-    color: var(--text-main) !important;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: 800;
+    color: #ffffff !important;
 }
 
-.navbar-brand::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    background: var(--brand);
-    border-radius: 50%;
-    display: inline-block;
+.navbar-brand span {
+    background: var(--primary-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .nav-link {
     color: var(--text-muted) !important;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    transition: 0.3s;
 }
 
-.nav-link:hover, .nav-link.active {
-    color: var(--primary) !important;
-}
+.nav-link:hover { color: #ffffff !important; }
 
-/* ================= DATA CARDS (SPA STYLE) ================= */
+/* ================= PROFESSIONAL CARDS ================= */
 .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    transition: border-color 0.2s;
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: 0.3s ease;
 }
 
 .card:hover {
-    border-color: var(--primary);
+    transform: translateY(-5px);
+    border-color: rgba(99, 102, 241, 0.4) !important;
 }
 
-.card-body h5 {
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+/* ================= TABLES (VISIBILITY FIX) ================= */
+.table {
+    color: #ffffff !important;
+    margin-top: 1rem;
 }
 
-.card-body h2 {
-    font-weight: 700;
-    letter-spacing: -0.03em;
-}
-
-/* ================= THE INVENTORY TABLE ================= */
-.table-responsive {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-}
-
-table {
-    margin: 0 !important;
-}
-
-table thead th {
-    background: #fcfcfd !important;
-    color: var(--text-muted);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 1rem !important;
+.table thead th {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: var(--primary) !important; /* Highlights headers */
     border-bottom: 1px solid var(--border) !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
 }
 
-table tbody td {
+.table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     padding: 1rem !important;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.9rem;
-    vertical-align: middle;
 }
 
-table tr:last-child td {
-    border-bottom: none;
-}
-
-/* ================= REACT BUTTONS ================= */
-.btn {
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.85rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent;
-}
-
+/* ================= BUTTONS ================= */
 .btn-primary {
-    background-color: var(--primary);
-    color: white;
+    background: var(--primary-grad) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 700;
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
 }
 
-.btn-primary:hover {
-    background-color: #4f46e5;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-}
-
-.btn-outline-primary {
-    border-color: var(--border);
-    color: var(--text-main);
-    background: white;
-}
-
-.btn-outline-primary:hover {
-    background: var(--bg-app);
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-/* ================= MODERN BADGES ================= */
-.badge {
-    padding: 4px 8px;
-    font-weight: 500;
-    border-radius: 9999px; /* Pill shape */
-    font-size: 0.7rem;
-}
-
-.bg-primary { background-color: #eef2ff !important; color: #4338ca !important; }
-.bg-success { background-color: #ecfdf5 !important; color: #065f46 !important; }
-.bg-danger { background-color: #fef2f2 !important; color: #991b1b !important; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--surface-light); border-radius: 10px; }

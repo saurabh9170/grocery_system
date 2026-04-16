@@ -8,7 +8,7 @@ include 'includes/header.php';
 <a href="supplier_add.php" class="btn btn-success mb-3">+ Add New Supplier</a>
 
 <table class="table table-striped table-bordered">
-    <thead>
+    <thead class="table-dark">
         <tr>
             <th>#</th>
             <th>Supplier Name</th>
