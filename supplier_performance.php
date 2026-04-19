@@ -24,6 +24,9 @@ include 'includes/header.php';
         $query = mysqli_query($conn, "SELECT * FROM suppliers ORDER BY id DESC");
         $i = 1;
         while($row = mysqli_fetch_assoc($query)){
+            // We create the variables here so the HTML is cleaner
+            $id = $row['id'];
+            
             echo "<tr>
                     <td>{$i}</td>
                     <td>{$row['supplier_name']}</td>
@@ -32,7 +35,10 @@ include 'includes/header.php';
                     <td>{$row['contact_phone']}</td>
                     <td>{$row['address']}</td>
                     <td>
-                        <a href='supplier_delete.php?id={$row['id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this supplier?\")'>Delete</a>
+                        <a href='supplier_edit.php?id={$id}' class='btn btn-sm btn-primary'>Edit</a>
+                        
+                        <a href='supplier_delete.php?id={$id}' class='btn btn-sm btn-danger' 
+                           onclick='return confirm(\"Are you sure?\")'>Delete</a>
                     </td>
                   </tr>";
             $i++;

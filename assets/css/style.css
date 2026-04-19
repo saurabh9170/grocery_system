@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --bg-dark: #020617;           /* Deep Midnight */
+    --bg-dark: #020617;          /* Deep Midnight */
     --surface: #0f172a;          /* Card Surface */
     --surface-light: #1e293b;    /* Hover/Input Surface */
     --primary-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    --primary: #6366f1;          
-    --border: rgba(255, 255, 255, 0.08); 
+    --primary: #818cf8;          /* Lighter Indigo for better visibility */
+    --border: rgba(255, 255, 255, 0.12); 
     --text-main: #f8fafc;        
     --text-muted: #94a3b8;       
+    --success: #10b981;
 }
 
 /* ================= GLOBAL RESET ================= */
@@ -16,95 +17,149 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg-dark);
     background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.04) 0px, transparent 50%);
     color: var(--text-main);
     margin: 0;
     min-height: 100vh;
+    line-height: 1.6;
 }
 
-/* Visibility Fix for Headings & Paragraphs */
+/* Clearer Headings */
 h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
     font-weight: 700;
-    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
 }
 
-p, label, .text-muted {
-    color: var(--text-muted) !important;
+/* Improved Paragraph Visibility */
+p, .text-muted {
+    color: #cbd5e1 !important; /* Brighter than muted for readability */
 }
 
 /* ================= MODERN NAVBAR ================= */
 .navbar {
-    background-color: rgba(2, 6, 23, 0.8) !important; 
-    backdrop-filter: blur(12px);
+    background-color: rgba(2, 6, 23, 0.85) !important; 
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border) !important; 
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
 }
 
 .navbar-brand {
     font-weight: 800;
-    color: #ffffff !important;
-}
-
-.navbar-brand span {
-    background: var(--primary-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    font-size: 1.5rem;
 }
 
 .nav-link {
     color: var(--text-muted) !important;
-    font-weight: 600;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    transition: 0.3s;
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin: 0 10px;
+    transition: 0.2s;
 }
 
-.nav-link:hover { color: #ffffff !important; }
+.nav-link:hover, .nav-link.active { 
+    color: var(--primary) !important; 
+}
 
 /* ================= PROFESSIONAL CARDS ================= */
 .card {
     background: var(--surface) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 20px;
-    padding: 1.5rem;
-    transition: 0.3s ease;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(99, 102, 241, 0.4) !important;
+.card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    font-weight: 700;
+    color: var(--primary) !important;
+}
+
+/* ================= FORM CONTROLS (CRITICAL FIX) ================= */
+.form-control, .form-select {
+    background-color: var(--surface-light) !important;
+    border: 1px solid var(--border) !important;
+    color: #ffffff !important;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+    outline: none;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main) !important;
 }
 
 /* ================= TABLES (VISIBILITY FIX) ================= */
 .table {
-    color: #ffffff !important;
-    margin-top: 1rem;
+    color: #e2e8f0 !important;
+    border-collapse: separate;
+    border-spacing: 0 8px;
 }
 
 .table thead th {
-    background: rgba(255, 255, 255, 0.03) !important;
-    color: var(--primary) !important; /* Highlights headers */
-    border-bottom: 1px solid var(--border) !important;
+    background: transparent !important;
+    color: var(--primary) !important;
+    border: none !important;
     text-transform: uppercase;
     font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    background-color: rgba(30, 41, 59, 0.4);
+    transition: 0.2s;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(30, 41, 59, 0.8);
 }
 
 .table td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-    padding: 1rem !important;
+    padding: 1.2rem 1rem !important;
+    border-top: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
 }
+
+.table td:first-child { border-left: 1px solid var(--border); border-radius: 12px 0 0 12px; }
+.table td:last-child { border-right: 1px solid var(--border); border-radius: 0 12px 12px 0; }
 
 /* ================= BUTTONS ================= */
 .btn-primary {
     background: var(--primary-grad) !important;
     border: none !important;
-    border-radius: 12px !important;
-    font-weight: 700;
-    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    border-radius: 10px !important;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -5px rgba(99, 102, 241, 0.5);
+}
+
+.btn-sm { border-radius: 8px !important; }
+
+/* ================= ANALYTICS CHARTS ================= */
+canvas {
+    filter: drop-shadow(0 10px 8px rgba(0,0,0,0.2));
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb { background: var(--surface-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
